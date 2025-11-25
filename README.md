@@ -206,6 +206,34 @@ These files are designed to test the detection capabilities of security scanning
    - `terraform-main.tf`
 2. Verify detection of infrastructure misconfigurations
 
+## Automated security scans (GitHub Actions)
+
+This repository includes a GitHub Actions workflow that runs an automated vulnerability scan using Trivy and commits the results back to the repository for inspection.
+
+- Workflow file: `.github/workflows/scans.yaml`
+- Trigger: runs on `push` to the `main` branch and supports manual runs via `workflow_dispatch`.
+- Runner: `ubuntu-latest` (GitHub-hosted runner)
+- Scanner: `aquasecurity/trivy-action` (Trivy)
+
+Key details of the scan configuration:
+- scan-type: `fs` — filesystem scanning (detects vulnerabilities in files and installed packages found in the repo)
+- format: `json` — the results are written in JSON format
+- output: `scan-results.json` — the report file is saved at the repository root
+- ignore-unfixed: `true` — Trivy will ignore vulnerabilities that don't yet have fixes available
+- severity: `CRITICAL,HIGH` — the scan is configured to focus on high-severity issues
+
+After the scan completes the workflow will attempt to commit `scan-results.json` back to the repository (the job sets `contents: write` permission and only commits when there are changes). This gives you a history of scan results in commits for easy review.
+
+How to use and inspect results:
+- Trigger the scan automatically by pushing to `main`, or run it manually from the Actions tab.
+- After the run, check the `scan-results.json` file in the repository root to view the JSON output of Trivy.
+- You can open the JSON in any viewer or convert to human-friendly formats for reporting.
+
+Notes & recommendations:
+- The workflow focuses on the most severe issues by default; if you want to catch more findings change the `severity` option in `.github/workflows/scans.yaml`.
+- `ignore-unfixed: true` keeps noisy, unfixable findings out of the report — set it to `false` if you want everything reported.
+- Consider adding additional Trivy scan types (like `image` or `remote`) or other scanners to broaden coverage.
+
 ## Expected Detections
 
 Your security scanners should detect:
