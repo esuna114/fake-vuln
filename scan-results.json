@@ -1,13 +1,13 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2025-11-25T20:04:19.515541131Z",
+  "CreatedAt": "2025-11-25T20:08:21.166483162Z",
   "ArtifactName": ".",
   "ArtifactType": "filesystem",
   "Metadata": {
     "RepoURL": "https://github.com/esuna114/fake-vuln",
     "Branch": "main",
-    "Commit": "089795f9077467aa51be24d4dcc13e7332e7b9d8",
-    "CommitMsg": "Add GitHub Actions workflow for Trivy security scanning",
+    "Commit": "3eeaca2b8dad909ce2f88220ba26e131a905e55b",
+    "CommitMsg": "Merge branch 'main' of https://github.com/esuna114/fake-vuln",
     "Author": "Emmanuel Tramoy \u003cesuna114.github@gmail.com\u003e",
     "Committer": "Emmanuel Tramoy \u003cesuna114.github@gmail.com\u003e"
   },
